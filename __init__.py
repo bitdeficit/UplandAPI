@@ -122,3 +122,38 @@ def getAllNeighborhoods(token):
   except requests.exceptions.RequestException as e:
     print(e)
     return None
+
+
+
+
+###############################################################
+#
+# Up2Land API Calls
+#
+###############################################################
+
+def getNeighborhoodDeepInfo(id):
+  headers={"Origin": "https://up2land.com",
+  "Referer": "https://up2land.com"}
+
+  try:
+    req = requests.get(f' https://api.up2land.com/neighborhood_deepinfo/{id}', headers=headers)
+#    req = requests.get(f' https://api.up2land.com/neighborhood_deepinfo/{id}')
+    req.raise_for_status()
+    return json.loads(req.text)
+  except requests.exceptions.RequestException as e:
+    print(e)
+    return None
+    
+
+def getPropertyByAddress(address, city_id):
+  headers={"Origin": "https://up2land.com",
+  "Referer": "https://up2land.com"}
+
+  try:
+    req = requests.get(f' https://api.up2land.com/bigdata/query?queryAddress={address}&city={city_id}', headers=headers)
+    req.raise_for_status()
+    return json.loads(req.text)
+  except requests.exceptions.RequestException as e:
+    print(e)
+    return None
